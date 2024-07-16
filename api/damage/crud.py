@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from damage import models, schemas
 
+
 def create_image(db: Session, filename: str, filepath: str, segmentation_result: str):
     db_image = models.Image(filename=filename, filepath=filepath, segmentation_result=segmentation_result)
     db.add(db_image)
@@ -20,3 +21,13 @@ def get_images(db: Session) -> list[models.Image]:
 
 def get_image(db: Session, image_id: int) -> models.Image:
     return db.query(models.Image).filter(models.Image.id == image_id).first()
+
+def delete_image(db: Session, image_id: int):
+    db_image = db.query(models.Image).filter(models.Image.id == image_id).first()
+    if db_image:
+        db.delete(db_image)
+        db.commit()
+    return db_image
+
+def get_total_images(db: Session):
+    return db.query(models.Image).count()
