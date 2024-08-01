@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pillow
+sqlalchemy
+boto3
+pymysql  # MySQL을 사용하는 경우
